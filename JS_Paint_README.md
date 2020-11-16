@@ -32,3 +32,12 @@ painting tool
    .prettierignore 파일 생성후
    파일 지정 ( *.md 등)
 
+4. prettier 최초 설정
+   preference > editor format on save 검색 후 체크
+   json 검색 후 Launch 에 edit in ~~ 클릭
+   json 파일의 onsave 위쪽에 
+   "editor.defaultFormatter": "esbenp.prettier-vscode", 작성
+   후에 아래에 설정 적용 (https://uxgjs.tistory.com/150)
+
+5. prettier 적용 단계
+   settings.json(전역) > .editorconfig(프로젝트 에디터 설정) > .prettierrc(프로젝트 단위 프레티어 설정)
