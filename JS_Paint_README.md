@@ -41,3 +41,18 @@ painting tool
 
 5. prettier 적용 단계
    settings.json(전역) > .editorconfig(프로젝트 에디터 설정) > .prettierrc(프로젝트 단위 프레티어 설정)
+
+7. 캔버스 사용 주의점
+   css에서 크기 지정은 > 사용자에게 보여지는 크기
+   js에서 크기 지정은 > 좌표값을 인식하기 위한 크기
+   #html로 애초에 지정하면 둘다 적용
+
+8. 캔버스 콘텍스트 기본
+    if (!painting) {
+        ctx.beginPath(); // 새로운 경로 시작. 없으면 이전에 끝난 위치에서 다시시작
+        ctx.moveTo(x, y); // path 이동
+    } else {
+        ctx.lineTo(x, y); // sub좌표(마우스 위치) 지정
+        ctx.stroke(); // path와 sub-path들을 연결
+    }
+    
