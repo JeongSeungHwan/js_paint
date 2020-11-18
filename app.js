@@ -1,11 +1,24 @@
 const canvas = document.querySelector("#jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.querySelectorAll("#jsColor");
+const thick = document.querySelector("#jsThick");
+const modeBtn = document.querySelector("#jsMode");
+const saveBtn = document.querySelector("#jsSave");
+const clearBtn = document.querySelector("#jsClear");
 
-ctx.strokeStyle = "#2c2c2c";
+const DEAULT_COLOR = "#2c2c2c";
+const CANVAS_SIZE = [700, 700];
+canvas.width = CANVAS_SIZE[0];
+canvas.height = CANVAS_SIZE[1];
+// ctx 초기값
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+ctx.strokeStyle = DEAULT_COLOR;
+ctx.fillStyle = DEAULT_COLOR;
 ctx.lineWidth = 2.5;
 
 let painting = false;
+let filling = false;
 
 function startPainting() {
     painting = true;
@@ -27,11 +40,73 @@ function onMouseMove(event) {
     }
 }
 
+function handleColorClick(event) {
+    const color = event.target.style.backgroundColor;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+}
+
+function handleThickChange(event) {
+    ctx.lineWidth = event.target.value;
+}
+
+function handleModeClick() {
+    if (filling === true) {
+        filling = false;
+        modeBtn.innerText = "FILL";
+    } else {
+        filling = true;
+        modeBtn.innerText = "PAINT";
+    }
+}
+
+function handleFillCanvas() {
+    if (filling === true) ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function handleContextMenu(event) {
+    event.preventDefault();
+}
+
+function handleSaveClick() {
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = image;
+    link.download = "painting";
+    link.click();
+}
+
+function handleClearClick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+if (colors) {
+    Array.from(colors).forEach((color) =>
+        color.addEventListener("click", handleColorClick)
+    );
+}
+
+if (thick) {
+    thick.addEventListener("input", handleThickChange);
+}
+
+if (modeBtn) {
+    modeBtn.addEventListener("click", handleModeClick);
+}
+
 if (canvas) {
+    canvas.addEventListener("click", handleFillCanvas);
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
+    canvas.addEventListener("contextmenu", handleContextMenu);
 }
 
-console.log(colors);
+if (saveBtn) {
+    saveBtn.addEventListener("click", handleSaveClick);
+}
+
+if (clearBtn) {
+    clearBtn.addEventListener("click", handleClearClick);
+}

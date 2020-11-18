@@ -55,4 +55,39 @@ painting tool
         ctx.lineTo(x, y); // sub좌표(마우스 위치) 지정
         ctx.stroke(); // path와 sub-path들을 연결
     }
-    
+
+9. Array.from(OBJECT);
+   OBJECT로부터 리스트를 생성
+
+10. forEach문의 형태 기억
+   Array.from(colors).forEach((color) =>
+      color.addEventListener("click", changeColor)
+   );
+
+11. 필요한 값 찾기
+   handler에서 event 출력 후 찾아가기 단계별로
+
+12. ctx.fillstyle = COLOR / ctx.fillRect(X,Y,W,H)
+   >> 색 지정 / 그리기 >> 세트임
+
+13. addEventListne("contextmenu")
+   >> 우클릭 시에 나타나는 메뉴에 대한 이벤트
+
+14. event.preventDefault
+   >> 이벤트가 기본적으로 가지고 있는 기능 막음
+
+15. canvas 데이터를 이미지로 전환
+   canvas.toDataURL("image/jpeg");
+   >> 이미지 URL 반환
+
+16. <a href = LINK download = NAME>
+   해당 링크 내의 데이터를 다운로드 하는 링크 생성
+
+17. 16을 활용해 버튼 하나로 다운로드 링크 만들기
+   function handleSaveClick(event) {
+      const image = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = image;
+      link.download = "painting";
+      link.click();
+   }
